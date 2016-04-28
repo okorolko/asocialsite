@@ -6,6 +6,7 @@ body {
     font-family: monospace;
     font-size: 1.1em;
     display: block;
+    background-color: red;
 }
 a, a:visited, a:active {
   text-decoration: none;
