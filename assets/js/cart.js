@@ -238,7 +238,12 @@ $(function() {
     });
 });
 
+    //template_test
 
+
+
+
+    
     // $("#customerInfo").on('submit', function(event) {
     //     event.preventDefault();
     //
