@@ -5,6 +5,7 @@ function storageGet() {
   var localParse = JSON.parse(localGet);
   return localParse;
 }
+var storGet = storageGet()
 
 function storageSet(fn) {
   localStorage.setItem("asocialStore", JSON.stringify(fn));
@@ -20,14 +21,28 @@ function storageChecker() {
   };
 };
 
-function cartDisplay(fn) {
+// function cartDisplay(fn) {
+//     var qty = 0;
+//     for (item in fn) {
+//         qty += parseInt(fn[item].qty)
+//     };
+//     // $('#cartDisplay').empty();
+//     // $('#cartDisplay').append('<span id="cartDisplay"></span>');
+//     $('#cartDisplay').text("cart" + " / " + qty + "");
+// };
+
+function cartDisplay() {
+  var localGet = localStorage.getItem("asocialStore");
+  var localParse = JSON.parse(localGet);
+
     var qty = 0;
-    for (item in fn) {
-        qty += parseInt(fn[item].qty)
+    for (item in localParse) {
+        qty += parseInt(localParse[item].qty)
     };
-    $('ul:last-child span').empty('<span id="cartDisplay"></span>');
-    $('ul:last-child span').append('<span id="cartDisplay"></span>');
-    $("#cartDisplay").text("cart" + " / " + qty + "");
+    // $('#cartDisplay').empty();
+    // $('#cartDisplay').append('<span id="cartDisplay"></span>');
+    $('#cartDisplay').text("cart" + " / " + qty + "");
+    $('.slicknav_nav li:last-child a').text("cart" + " / " + qty + "");
 };
 
 function totalCalc() {
@@ -62,12 +77,22 @@ function cartIsEmpty(fn) {
   }
 }
 
+function thankForPurchase() {
+  $('.wrapper').append('<span id="cartIsEmpty">Thank you for your order!</span>');
+  $('.wrapper').append('<img src="http://i.imgur.com/6yjBDPb.gif" alt=""/>');
+  $('hr').remove();
+  $('#productsInCart').remove();
+  $('#clearStorage').remove();
+  $('#customerInfo').remove();
+}
+
 //One product page
 $(function() {
 
     //Storage check on page load
     storageChecker();
-    cartDisplay(storageGet());
+    cartDisplay()
+
 
     $("#addToCart").on('submit', function(event) {
 
@@ -108,6 +133,8 @@ $(function() {
 
         };
 
+
+
         var cartNo = 0;
         for(item in localStorageParse){
           localStorageParse[item].cartNo = cartNo;
@@ -117,7 +144,7 @@ $(function() {
 
         localStorage.setItem("asocialStore", JSON.stringify(localStorageParse));
 
-        cartDisplay(storageGet());
+        cartDisplay()
     });
 
 
@@ -174,7 +201,7 @@ $(function() {
 
         $('#productsInCart').children().remove();
         cartIsEmpty(storageCheck);
-        cartDisplay(storageGet());
+        cartDisplay()
     });
 
 
@@ -195,15 +222,12 @@ $(function() {
       })();
 
       function getSet(fn) {
-
-        fn.splice(id, 1);
-
-        var number = 0;
-        for(item in fn) {
-          fn[item].cartNo = number;
-          number++;
-        };
-
+          fn.splice(id, 1);
+          var number = 0;
+          for(item in fn) {
+            fn[item].cartNo = number;
+            number++;
+          };
         storageSet(fn);
       };
 
@@ -211,7 +235,7 @@ $(function() {
 
         cartIsEmpty(storageGet());
         totalCalc();
-        cartDisplay(storageGet());
+        cartDisplay()
 
         // document.location.reload(true);
     });
@@ -221,29 +245,72 @@ $(function() {
         event.preventDefault();
 
         var email = $('#3').val().toString();
-        // var email = mail.toString();
-        console.log(email);
+        var phone = $('#4').val().toString();
+        var address = $('#5').val().toString();
+        var city = $('#7').val().toString();
+        var country = $('#country').val().toString();
+        var paymentMethod = $('#paymentMethod').val().toString();
 
-          var messageHtml = $('#customerInfo')[0].outerHTML
+
+          $('.removeForm').remove();
+          // $('span').wrap('<style>* {font-family: monospace}</style>')
+          var messageHtml = $('#productsInCart').html();
+
           console.log(messageHtml);
 
+          localStorage.removeItem("asocialStore");
 
-          emailjs.send("gmail", "template_test", {
-              to_email: email,
-              from_name: "Bibik Store"
-              // message_html: messageHtml,
-              // info_html: infoHTML
-          });
+          thankForPurchase();
+
+              // $("#customerInfo").on('submit', function(event) {
+              //     event.preventDefault();
+              //
+              //     var array = $(this).serializeArray();
+              //     var obj = {};
+              //     $.each(array, function() {
+              //         obj[this.name] = this.value;
+              //     });
+              //     console.log(obj);
+              //     $(".hiddenDiv").append(obj["first name"]);
+              // });
+
+
+          // emailjs.send("gmail", "template_test", {
+          //     to_email: email,
+          //     from_name: "Bibik Store",
+          //     email_html: email,
+          //     message_html: messageHtml,
+          //     phone_html: phone,
+          //     address_html: address,
+          //     city_html: city,
+          //     country_html: country,
+          //     paymethod_html: paymentMethod
+          // });
+
+          // Payment Method: {{{paymethod_html}}}
+          //
+          // Email Address: {{{email_html}}}
+          //
+          // Phone: {{{phone_html}}}
+          //
+          // Address: {{{address_html}}}
+          //
+          // City : {{{city_html}}}
+          //
+          // Country: {{{country_html}}}
+
+
 
     });
+
 });
 
-    //template_test
 
 
 
 
-    
+
+
     // $("#customerInfo").on('submit', function(event) {
     //     event.preventDefault();
     //

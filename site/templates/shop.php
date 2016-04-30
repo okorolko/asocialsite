@@ -15,15 +15,15 @@
 <body>
   <div class="wrapper">
     <?php snippet('header') ?>
-
-
+<div class="fourColumns">
 <?php foreach(page('shop')->grandChildren() as $productPage): ?>
   <a href="<?php echo $productPage->url() ?>">
-  <img class="shopItemPic" src="<?php echo $productPage->image()->url() ?>"></a>
+  <div class="column4">
+  <img class="shopItemPic" src="<?php echo $productPage->image()->url() ?>">
+  </div>
+  </a>
 <?php endforeach ?>
-
-
-
+</div>
 </div>
 
 

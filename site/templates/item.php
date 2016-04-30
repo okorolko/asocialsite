@@ -7,7 +7,6 @@
   <title>BIBIK</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
-
    <?php echo css('assets/css/style.css') ?>
    <?php echo css('assets/css/slicknav.css') ?>
    <?php echo js('assets/js/cart.js') ?>
@@ -38,7 +37,6 @@ $(document).ready(function(){
 	$('#menu').slicknav();
 });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-color/2.1.2/jquery.color.js"</script>
 </body>
 
 </html>

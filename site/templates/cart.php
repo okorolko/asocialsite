@@ -22,17 +22,8 @@
     <div class="wrapper">
       <?php snippet('header') ?>
         <div id="productsInCart">
-            <!-- <div id="cartItemImage"></div>
-            <div id="cartDescription">
-            <span class="productTitlePrice" id="productTitle"></span>
-            <br>
-            <span class="productTitlePrice" id="productPrice"></span>
-            <br>
-            <span id="qty">Quantity: </span>
-            <span id="totalQtyItem">Subtotal: </span> -->
         </div>
         <div id="checkout">
-
         </div>
         <!-- <form id="clearStorage">
             <input type="submit" name="clearStorage" value="Clear Cart">
@@ -78,20 +69,23 @@
             <div class="customerInfoDiv">
               <label class="checkoutTitles" for="country">country</label>
             <select class="inputField" id="country">
-                <option value="RUS">Russian Federation</option>
+                <option value="Russia">Russian Federation</option>
                 <option value="USA">United States</option>
             </select>
             </div>
+
+            <div class="customerInfoDiv">
+              <label class="checkoutTitles" for="paymentMethod">Payment Method</label>
+            <select class="inputField" id="paymentMethod">
+                <option value="Paypal">Paypal</option>
+                <option value="Cash">Cash</option>
+            </select>
+            </div>
+
             <input type="submit" value="Place Order" id="placeOrder">
         </form>
-
-
-
-
-
       </div>
     </div>
-
     <?php echo js('assets/js/jquery.slicknav.js') ?>
     <script type="text/javascript">
     $(document).ready(function(){
